@@ -18,7 +18,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Etc/UTC
+      - TZ=America/Chicago
     volumes:
       - ${CONFIG_PATH}/${CONTAINER_NAME}-bazarr:/config
       - ${MEDIA_PATH}/movies:/movies:rw
