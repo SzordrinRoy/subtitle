@@ -1,0 +1,28 @@
+services:
+  subgen:
+    container_name: ${CONTAINER_NAME}-subgen
+    tty: true
+    image: mccloud/subgen:cpu
+    cpu_shares: 512
+    volumes:
+       - ${MEDIA_PATH}/tv:/tv
+       - ${MEDIA_PATH}/movies:/movies
+       - ${CONFIG_PATH}/${CONTAINER_NAME}-subgen/models:/subgen/models
+    ports:
+       - 9999:9000
+
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: ${CONTAINER_NAME}-bazarr
+    cpu_shares: 512
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - ${CONFIG_PATH}/${CONTAINER_NAME}-bazarr:/config
+      - ${MEDIA_PATH}/movies:/movies:rw
+      - ${MEDIA_PATH}/tv:/tv:rw #optional
+    ports:
+      - 6767:6767
+    restart: unless-stopped
