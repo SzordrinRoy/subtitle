@@ -3,6 +3,7 @@ services:
     container_name: ${CONTAINER_NAME}-subgen
     tty: true
     image: mccloud/subgen:cpu
+    network_mode: bridge
     cpu_shares: 512
     volumes:
        - ${MEDIA_PATH}/tv:/tv
